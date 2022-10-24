@@ -4,7 +4,7 @@
 sudo mkdir /lib/sh
 
 #Create catalogue for git repo 
-sudo mkdir $HOME/Git
+mkdir $HOME/Git
 
 git clone https://github.com/0p553cd3v/Bash-common-lib $HOME/Git
 
