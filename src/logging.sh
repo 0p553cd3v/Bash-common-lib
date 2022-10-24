@@ -2,7 +2,13 @@
 
 #Function declarations
 
-export LOGDIR=$RPS_LOG_DIR
+#Check if logging direcotry set else use default
+if [[ -n "$1" ]]; then
+    export LOGDIR=$1
+else
+    export LOGDIR="$USER/.logs/default"
+fi
+
 export DATE=`date +"%Y%m%d"`
 export DATETIME=`date +"%Y%m%d_%H%M%S"`
  
@@ -64,6 +70,7 @@ ScriptName=`basename $0`
 Job=`basename $0 .sh`
 JobClass=`basename $0 .sh`
  
+
 function Log_Open() {
         if [ $NO_JOB_LOGGING ] ; then
                 einfo "Not logging to a logfile because -Z option specified." #(*)
