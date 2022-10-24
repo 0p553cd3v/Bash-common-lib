@@ -11,9 +11,3 @@ git clone https://github.com/0p553cd3v/Bash-common-lib.git $HOME/Git/Bash-common
 
 sudo cp $HOME/Git/Bash-common-lib/src/common.sh /lib/sh
 sudo cp $HOME/Git/Bash-common-lib/src/logging.sh /lib/sh
-
-#Add libs to current shell
-export PATH=/lib/sh:$PATH
-#Add libs permanently
-sudo echo -e "export PATH=/lib/sh:$PATH" >> ~/.bash_profile
-source ~/.bash_profile
