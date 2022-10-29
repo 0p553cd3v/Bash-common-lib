@@ -38,22 +38,20 @@ function run_func() {
 
 function create_dir() {
 	if [ -d "$1" ]; then
-                enotify "Directory $1 exist - no actions taken"
-                exit 0
+        enotify "Directory $1 exist - no actions taken"
 	else
 		enotify "Creating directory $1"
-                mkdir $1
+        mkdir $1
 		check_if_fail
 	fi
 }
 
 function create_sudo_dir() {
 	if [ -d "$1" ]; then
-                enotify "Directory $1 exist - no actions taken"
-                exit 0
+        enotify "Directory $1 exist - no actions taken"
 	else
 		enotify "Creating directory $1"
-                sudo mkdir $1
+        sudo mkdir $1
 		check_if_fail
 	fi
 }
