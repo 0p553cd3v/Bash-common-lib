@@ -16,8 +16,21 @@ To run this project following prerequisites have to be fulfilled:
 
 ## Launch
 * Run following command
+For released script version:
 ```
-curl --proto '=https' --tlsv1.2 -sSf  https://raw.githubusercontent.com/0p553cd3v/Bash-common-lib/master/tools/install.sh | sh
+curl --proto '=https' --tlsv1.2 -sSf  https://raw.githubusercontent.com/0p553cd3v/Bash-common-lib/master/tools/install.sh | bash
+```
+For pre-released script version:
+```
+curl --proto '=https' --tlsv1.2 -sSf  https://raw.githubusercontent.com/0p553cd3v/Bash-common-lib/master/tools/install.sh | bash -s -- release
+```
+For develop script version:
+```
+curl --proto '=https' --tlsv1.2 -sSf  https://raw.githubusercontent.com/0p553cd3v/Bash-common-lib/master/tools/install.sh | bash -s -- develop
+```
+For any other script version:
+```
+curl --proto '=https' --tlsv1.2 -sSf  https://raw.githubusercontent.com/0p553cd3v/Bash-common-lib/master/tools/install.sh | bash -s -- branch_name
 ```
 ## Notes
 Logging functions by https://www.ludovicocaldara.net/dba/bash-tips-4-use-logging-levels/ and https://www.ludovicocaldara.net/dba/bash-tips-5-output-logfile/ 
