@@ -114,35 +114,5 @@ while getopts ":Z" opt ; do
         esac
 done
 
-function check_result() {
-	if [ $? -eq 0 ]; then 
-	  eok $1
-	else 
-	  eerror $1
-	  exit 1
-	fi
-}
 
-function check_if_fail() {
-	if [ $? -ne 0 ]; then 
-	  eerror $1
-	  exit 1
-	fi
-}
 
-function warn_if_fail() {
-	if [ $? -ne 0 ]; then 
-	  ewarn $1
-	fi
-}
-
-function run_func() {
-	edebug "Executing $2"
-	if [ $1 -eq 0 ]; then
-		$2
-		check_result $3
-	else
-		$2
-		check_if_fail $2
-	fi
-}
