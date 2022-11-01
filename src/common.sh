@@ -84,7 +84,7 @@ function create_file() {
 	fi
 }
 
-function create_sudo_file() {
+function create_file_sudo() {
 	fullpath="$1"
 	filename=${fullpath##*/}
 	filedir=${fullpath//$filename/}
@@ -120,7 +120,7 @@ function copy_file() {
     dst_fullpath="$dst_filedir/$src_filename"
 
 	edebug "Source file path: $src_fullpath"
-	edebug "Source file path: $src_filename"
+	edebug "Source file name: $src_filename"
 	edebug "Source file dir: $src_filedir"
 	edebug "Destination file path: $dst_fullpath"
 	edebug "Destination file dir: $dst_filedir"
@@ -133,7 +133,8 @@ function copy_file() {
 			eerror "Destination directory not exist $dst_filedir"
 			exit 1
 		else
-			enotify "NULL directory"
+			eerror "NULL directory"
+			exit 1
 		fi	
 	fi		
 	if [ -f "$dst_fullpath" ]; then
@@ -145,7 +146,7 @@ function copy_file() {
 	fi
 }
 
-function copy_sudo_file() {
+function copy_file_sudo() {
 	src_fullpath="$1"
 	src_filename=${src_fullpath##*/}
 	src_filedir=${src_fullpath//$src_filename/}
@@ -153,11 +154,10 @@ function copy_sudo_file() {
     dst_fullpath="$dst_filedir/$src_filename"
 
 	edebug "Source file path: $src_fullpath"
-	edebug "Source file path: $src_filename"
+	edebug "Source file name: $src_filename"
 	edebug "Source file dir: $src_filedir"
 	edebug "Destination file path: $dst_fullpath"
 	edebug "Destination file dir: $dst_filedir"
-
 
 	if [ -d "$dst_filedir" ]; then
 		enotify "Destination directory $dst_filedir exist"
@@ -166,7 +166,8 @@ function copy_sudo_file() {
 			eerror "Destination directory not exist $dst_filedir"
 			exit 1
 		else
-			enotify "NULL directory"
+			eerror "NULL directory"
+			exit 1
 		fi	
 	fi		
 	if [ -f "$dst_fullpath" ]; then
@@ -175,5 +176,45 @@ function copy_sudo_file() {
 		enotify "Copying file $src_fullpath to $dst_filedir"
         sudo cp $src_fullpath $dst_filedir
 		check_if_fail
+	fi
+}
+
+function add_line_to_file() {
+	if [ -f "$2" ]; then
+		if grep -q '$3' <<<$2; then
+			line=grep -q '$3' <<<$2
+			enotify "Line prefix $3 found"
+			enotify "Appending line $line with $1" 	
+			sed -i "s|^$3*|$1|g" $2
+			check_if_fail
+		else
+			enotify "Line prefix $3 not found"
+			enotify "Adding $1 to file $2"
+			echo $1 >> $2
+			check_if_fail
+		fi
+	else
+		eerror "File $2 not exist"
+		exit 1
+	fi
+}
+
+function add_line_to_file_sudo() {
+	if [ -f "$2" ]; then
+		if grep -q '$3' <<<$2; then
+			line=grep -q '$3' <<<$2
+			enotify "Line prefix $3 found"
+			enotify "Appending line $line with $1" 	
+			sudo sed -i "s|^$3*|$1|g" $2
+			check_if_fail
+		else
+			enotify "Line prefix $3 not found"
+			enotify "Adding $1 to file $2"
+			sudo echo $1 >> $2
+			check_if_fail
+		fi
+	else
+		eerror "File $2 not exist"
+		exit 1
 	fi
 }
