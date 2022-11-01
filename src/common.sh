@@ -60,6 +60,9 @@ function create_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
 	filedir=${"$fullpath"//"$filename"/}
+	edebug $fullpath
+	edebug $filename
+	edebug $filedir
 
 	if [ -f "$fullpath" ]; then
         enotify "File $fullpath exist - no actions taken"
@@ -79,6 +82,9 @@ function create_sudo_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
 	filedir=${"$fullpath"//"$filename"/}
+	edebug $fullpath
+	edebug $filename
+	edebug $filedir
 
 	if [ -f "$fullpath" ]; then
         enotify "File $fullpath exist - no actions taken"
