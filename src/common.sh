@@ -180,9 +180,14 @@ function copy_file_sudo() {
 }
 
 function add_line_to_file() {
+
+	edebug "Line to be added: $1"
+	edebug "File path: $2"
+	edebug "Line prefix: $3"
+
 	if [ -f "$2" ]; then
-		if grep -q '$3' <<<$2; then
-			line=grep -q '$3' <<<$2
+		if grep -q "$3" <<<$2; then
+			line=grep -q "$3" <<<$2
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
 			sed -i "s|^$3*|$1|g" $2
@@ -200,9 +205,14 @@ function add_line_to_file() {
 }
 
 function add_line_to_file_sudo() {
+	
+	edebug "Line to be added: $1"
+	edebug "File path: $2"
+	edebug "Line prefix: $3"
+
 	if [ -f "$2" ]; then
-		if grep -q '$3' <<<$2; then
-			line=grep -q '$3' <<<$2
+		if grep -q "$3" <<<$2; then
+			line=grep -q "$3" <<<$2
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
 			sudo sed -i "s|^$3*|$1|g" $2
