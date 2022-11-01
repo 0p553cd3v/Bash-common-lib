@@ -186,24 +186,22 @@ function add_line_to_file() {
 	edebug "Line prefix: $3"
 
 	if [ -f "$2" ]; then
-		if grep -q "$3" <<<$2; then
-		    count="$(grep -c "$3" $2)"
-			edebug "Prefix matches count: $count"
-			if [[ "$count" > "1" ]]; then
-				eerror "Multiple ($count) matches for prefix $3"
-				exit 1
-			else
-				line="$(grep "$3" $2)"
-				enotify "Line prefix $3 found"
-				enotify "Appending line $line with $1" 	
-				sed -i "s|^$3*|$1|g" $2
-				check_if_fail
-			fi
-		else
+		count="$(grep -c "$3" $2)"
+		edebug "Prefix matches count: $count"
+		if [[ "$count" -eq "0" ]]; then
 			enotify "Line prefix $3 not found"
 			enotify "Adding $1 to file $2"
 			echo $1 >> $2
-			check_if_fail
+			check_if_fail	
+		elif [[ "$count" -eq "1" ]]; then	
+			line="$(grep "$3" $2)"
+			enotify "Line prefix $3 found"
+			enotify "Appending line $line with $1" 	
+			sed -i "s|^$3*|$1|g" $2
+			check_if_fail		
+		else			
+			eerror "Multiple ($count) matches for prefix $3"
+			exit 1
 		fi
 	else
 		eerror "File $2 not exist"
@@ -218,24 +216,22 @@ function add_line_to_file_sudo() {
 	edebug "Line prefix: $3"
 
 	if [ -f "$2" ]; then
-		if grep -q "$3" <<<$2; then
-		    count="$(grep -c "$3" $2)"
-			edebug "Prefix matches count: $count"
-			if [[ "$count" > "1" ]]; then
-				eerror "Multiple ($count) matches for prefix $3"
-				exit 1
-			else
-				line="$(grep "$3" $2)"
-				enotify "Line prefix $3 found"
-				enotify "Appending line $line with $1" 	
-				sudo sed -i "s|^$3*|$1|g" $2
-				check_if_fail
-			fi
-		else
+		count="$(grep -c "$3" $2)"
+		edebug "Prefix matches count: $count"
+		if [[ "$count" -eq "0" ]]; then
 			enotify "Line prefix $3 not found"
 			enotify "Adding $1 to file $2"
 			sudo echo $1 >> $2
-			check_if_fail
+			check_if_fail	
+		elif [[ "$count" -eq "1" ]]; then	
+			line="$(grep "$3" $2)"
+			enotify "Line prefix $3 found"
+			enotify "Appending line $line with $1" 	
+			sudo sed -i "s|^$3*|$1|g" $2
+			check_if_fail		
+		else				
+			eerror "Multiple ($count) matches for prefix $3"
+			exit 1
 		fi
 	else
 		eerror "File $2 not exist"
