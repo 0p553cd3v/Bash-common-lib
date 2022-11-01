@@ -186,7 +186,7 @@ function add_line_to_file() {
 	edebug "Line prefix: $3"
 
 	if [ -f "$2" ]; then
-		if grep -q $3 $2; then
+		if grep -q "$3" <<<$2; then
 			line=${grep $3 $2}
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
@@ -211,7 +211,7 @@ function add_line_to_file_sudo() {
 	edebug "Line prefix: $3"
 
 	if [ -f "$2" ]; then
-		if grep -q $3 $2; then
+		if grep -q "$3" <<<$2; then
 			line=${grep $3 $2}
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
