@@ -58,7 +58,7 @@ function create_sudo_dir() {
 
 function create_file() {
 	fullpath="$1"
-	filename=${$fullpath##*/}
+	filename=${fullpath##*/}
 	filedir=${$fullpath//$filename/}
 
 	if [ -f "$fullpath" ]; then
