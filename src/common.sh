@@ -101,9 +101,9 @@ function create_sudo_file() {
 }
 
 function copy_file() {
- 
+	echo $1
 }
 
 function copy_sudo_file() {
- 
+ 	echo $1
 }
