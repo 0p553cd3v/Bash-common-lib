@@ -63,18 +63,22 @@ function create_file() {
 	edebug $fullpath
 	edebug $filename
 	edebug $filedir
-
+	if [ -d "$filedir" ]; then
+		enotify "Directory $filedir exist"
+	else
+        if [[ -n "$filedir" ]]; then
+			eerror "Directory not exist $filedir"
+			exit 1
+		else
+			enotify "NULL directory"
+		fi	
+	fi		
 	if [ -f "$fullpath" ]; then
         enotify "File $fullpath exist - no actions taken"
 	else
-		if [ -d "$filedir" ]; then
-			enotify "Creating empty file $fullpath"
-        	touch $fullpath
-			check_if_fail
-		else
-			eerror "Directory not exist $filedir"
-			exit 1
-		fi		
+		enotify "Creating empty file $fullpath"
+        touch $fullpath
+		check_if_fail
 	fi
 }
 
@@ -85,18 +89,22 @@ function create_sudo_file() {
 	edebug $fullpath
 	edebug $filename
 	edebug $filedir
-
+	if [ -d "$filedir" ]; then
+		enotify "Directory $filedir exist"
+	else
+        if [[ -n "$filedir" ]]; then
+			eerror "Directory not exist $filedir"
+			exit 1
+		else
+			enotify "NULL directory"
+		fi	
+	fi		
 	if [ -f "$fullpath" ]; then
         enotify "File $fullpath exist - no actions taken"
 	else
-		if [ -d "$filedir" ]; then
-			enotify "Creating empty file $fullpath"
-        	sudo touch $fullpath
-			check_if_fail
-		else
-			eerror "Directory not exist $filedir"
-			exit 1
-		fi		
+		enotify "Creating empty file $fullpath"
+        sudo touch $fullpath
+		check_if_fail
 	fi
 }
 
