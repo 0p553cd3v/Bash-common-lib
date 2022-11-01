@@ -59,7 +59,7 @@ function create_sudo_dir() {
 function create_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
-	filedir=${"$fullpath"//"$filename"/}
+	filedir=${fullpath//$filename/}
 	edebug $fullpath
 	edebug $filename
 	edebug $filedir
@@ -81,7 +81,7 @@ function create_file() {
 function create_sudo_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
-	filedir=${"$fullpath"//"$filename"/}
+	filedir=${fullpath//$filename/}
 	edebug $fullpath
 	edebug $filename
 	edebug $filedir
