@@ -6,7 +6,7 @@
 if [[ -n "$1" ]]; then
     export LOGDIR=$1
 else
-    export LOGDIR="$USER/.logs/default"
+    export LOGDIR="$HOME/.logs/default"
 fi
 
 export DATE=`date +"%Y%m%d"`
