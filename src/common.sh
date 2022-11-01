@@ -60,9 +60,11 @@ function create_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
 	filedir=${fullpath//$filename/}
-	edebug $fullpath
-	edebug $filename
-	edebug $filedir
+
+	edebug "File path: $fullpath"
+	edebug "File name: $filename"
+	edebug "File dir: $filedir"
+
 	if [ -d "$filedir" ]; then
 		enotify "Directory $filedir exist"
 	else
@@ -86,9 +88,11 @@ function create_sudo_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
 	filedir=${fullpath//$filename/}
-	edebug $fullpath
-	edebug $filename
-	edebug $filedir
+
+	edebug "File path: $fullpath"
+	edebug "File name: $filename"
+	edebug "File dir: $filedir"
+
 	if [ -d "$filedir" ]; then
 		enotify "Directory $filedir exist"
 	else
@@ -109,9 +113,67 @@ function create_sudo_file() {
 }
 
 function copy_file() {
-	echo $1
+	src_fullpath="$1"
+	src_filename=${src_fullpath##*/}
+	src_filedir=${src_fullpath//$src_filename/}
+	dst_filedir="$2"
+    dst_fullpath="$dst_filedir/$src_filename"
+
+	edebug "Source file path: $src_fullpath"
+	edebug "Source file path: $src_filename"
+	edebug "Source file dir: $src_filedir"
+	edebug "Destination file path: $dst_fullpath"
+	edebug "Destination file dir: $dst_filedir"
+
+
+	if [ -d "$dst_filedir" ]; then
+		enotify "Destination directory $dst_filedir exist"
+	else
+        if [[ -n "$dst_filedir" ]]; then
+			eerror "Destination directory not exist $dst_filedir"
+			exit 1
+		else
+			enotify "NULL directory"
+		fi	
+	fi		
+	if [ -f "$dst_fullpath" ]; then
+        enotify "File $dst_fullpath exist - no actions taken"
+	else
+		enotify "Copying file $src_fullpath to $dst_filedir"
+        cp $src_fullpath $dst_filedir
+		check_if_fail
+	fi
 }
 
 function copy_sudo_file() {
- 	echo $1
+	src_fullpath="$1"
+	src_filename=${src_fullpath##*/}
+	src_filedir=${src_fullpath//$src_filename/}
+	dst_filedir="$2"
+    dst_fullpath="$dst_filedir/$src_filename"
+
+	edebug "Source file path: $src_fullpath"
+	edebug "Source file path: $src_filename"
+	edebug "Source file dir: $src_filedir"
+	edebug "Destination file path: $dst_fullpath"
+	edebug "Destination file dir: $dst_filedir"
+
+
+	if [ -d "$dst_filedir" ]; then
+		enotify "Destination directory $dst_filedir exist"
+	else
+        if [[ -n "$dst_filedir" ]]; then
+			eerror "Destination directory not exist $dst_filedir"
+			exit 1
+		else
+			enotify "NULL directory"
+		fi	
+	fi		
+	if [ -f "$dst_fullpath" ]; then
+        enotify "File $dst_fullpath exist - no actions taken"
+	else
+		enotify "Copying file $src_fullpath to $dst_filedir"
+        sudo cp $src_fullpath $dst_filedir
+		check_if_fail
+	fi
 }
