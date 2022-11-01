@@ -59,7 +59,7 @@ function create_sudo_dir() {
 function create_file() {
 	fullpath="$1"
 	filename=${fullpath##*/}
-	filedir=${$fullpath//$filename/}
+	filedir=${"$fullpath"//"$filename"/}
 
 	if [ -f "$fullpath" ]; then
         enotify "File $fullpath exist - no actions taken"
@@ -77,8 +77,8 @@ function create_file() {
 
 function create_sudo_file() {
 	fullpath="$1"
-	filename=${lsfullpath##*/}
-	filedir=${$fullpath//$filename/}
+	filename=${fullpath##*/}
+	filedir=${"$fullpath"//"$filename"/}
 
 	if [ -f "$fullpath" ]; then
         enotify "File $fullpath exist - no actions taken"
