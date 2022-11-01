@@ -187,8 +187,10 @@ function add_line_to_file() {
 
 	if [ -f "$2" ]; then
 		if grep -q "$3" <<<$2; then
-			if [["$(grep -c "$3" $2)" > 1]]; then
-				eerror "Multiple ($(grep -c "$3" $2)) matches for prefix $3"
+		    count="$(grep -c "$3" $2)"
+			edebug "Prefix matches count: $count"
+			if [[ "$count" > "1" ]]; then
+				eerror "Multiple ($count) matches for prefix $3"
 				exit 1
 			else
 				line="$(grep "$3" $2)"
@@ -217,8 +219,10 @@ function add_line_to_file_sudo() {
 
 	if [ -f "$2" ]; then
 		if grep -q "$3" <<<$2; then
-			if [["$(grep -c "$3" $2)" > 1]]; then
-				eerror "Multiple ($(grep -c "$3" $2)) matches for prefix $3"
+		    count="$(grep -c "$3" $2)"
+			edebug "Prefix matches count: $count"
+			if [[ "$count" > "1" ]]; then
+				eerror "Multiple ($count) matches for prefix $3"
 				exit 1
 			else
 				line="$(grep "$3" $2)"
