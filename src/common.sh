@@ -187,7 +187,7 @@ function add_line_to_file() {
 
 	if [ -f "$2" ]; then
 		if grep -q "$3" <<<$2; then
-			line=${grep -q "$3" <<<$2}
+			line=${grep "$3" <<<$2}
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
 			sed -i "s|^$3*|$1|g" $2
@@ -212,7 +212,7 @@ function add_line_to_file_sudo() {
 
 	if [ -f "$2" ]; then
 		if grep -q "$3" <<<$2; then
-			line=${grep -q "$3" <<<$2}
+			line=${grep "$3" <<<$2}
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
 			sudo sed -i "s|^$3*|$1|g" $2
