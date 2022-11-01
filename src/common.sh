@@ -197,7 +197,7 @@ function add_line_to_file() {
 			line="$(grep "$3" $2)"
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
-			sed -n "s|^$3*|$1|p" $2
+			sed -i "s|^$3|$1|p" $2
 			check_if_fail		
 		else			
 			eerror "Multiple ($count) matches for prefix $3"
@@ -227,7 +227,7 @@ function add_line_to_file_sudo() {
 			line="$(grep "$3" $2)"
 			enotify "Line prefix $3 found"
 			enotify "Appending line $line with $1" 	
-			sudo sed -n "s|^$3*|$1|p" $2
+			sudo sed -i "s|^$3|$1|p" $2
 			check_if_fail		
 		else				
 			eerror "Multiple ($count) matches for prefix $3"
