@@ -55,3 +55,23 @@ function create_sudo_dir() {
 		check_if_fail
 	fi
 }
+
+function create_file() {
+	if [ -f "$1" ]; then
+        enotify "File $1 exist - no actions taken"
+	else
+		enotify "Creating empty file $1"
+        touch $1
+		check_if_fail
+	fi
+}
+
+function create_sudo_file() {
+	if [ -f "$1" ]; then
+        enotify "File $1 exist - no actions taken"
+	else
+		enotify "Creating empty file $1"
+        sudo touch $1
+		check_if_fail
+	fi
+}
