@@ -57,21 +57,47 @@ function create_sudo_dir() {
 }
 
 function create_file() {
-	if [ -f "$1" ]; then
-        enotify "File $1 exist - no actions taken"
+	fullpath="$1"
+	filename=${$fullpath##*/}
+	filedir=${$fullpath//$filename/}
+
+	if [ -f "$fullpath" ]; then
+        enotify "File $fullpath exist - no actions taken"
 	else
-		enotify "Creating empty file $1"
-        touch $1
-		check_if_fail
+		if [ -d "$filedir" ]; then
+			enotify "Creating empty file $fullpath"
+        	touch $fullpath
+			check_if_fail
+		else
+			eerror "Directory not exist $filedir"
+			exit 1
+		fi		
 	fi
 }
 
 function create_sudo_file() {
-	if [ -f "$1" ]; then
-        enotify "File $1 exist - no actions taken"
+	fullpath="$1"
+	filename=${$fullpath##*/}
+	filedir=${$fullpath//$filename/}
+
+	if [ -f "$fullpath" ]; then
+        enotify "File $fullpath exist - no actions taken"
 	else
-		enotify "Creating empty file $1"
-        sudo touch $1
-		check_if_fail
+		if [ -d "$filedir" ]; then
+			enotify "Creating empty file $fullpath"
+        	sudo touch $fullpath
+			check_if_fail
+		else
+			eerror "Directory not exist $filedir"
+			exit 1
+		fi		
 	fi
+}
+
+function copy_file() {
+ 
+}
+
+function copy_sudo_file() {
+ 
 }
