@@ -7,6 +7,16 @@ function config_count_records_GGA (){
   # $1 - Config file path
   # $2 - Group
   # $3 - Select field name 
+  # $4 - Value array name
+  retval=""
+  retval=$( run_func_return 1 "$(jq '.$2.$3 | .$4 | length' $1)" )
+  echo "$retval"
+}
+
+function config_count_records_GSA (){
+  # $1 - Config file path
+  # $2 - Group
+  # $3 - Select field name 
   # $4 - Select field value
   # $5 - Value array name
   retval=""
