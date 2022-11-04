@@ -26,13 +26,18 @@ function check_UUID() {
 }
 
 function run_func() {
+	# $1 Choose function
+	# 0 - check results
+	# 1 - check_if_fail
+	# $2 - Body of function to run
+	# $3 - Common name for logging (not mandatory)
 	edebug "Executing $2"
 	if [ $1 -eq 0 ]; then
 		$2
 		check_result $3
 	else
 		$2
-		check_if_fail $2
+		check_if_fail
 	fi
 }
 
