@@ -46,3 +46,14 @@ function config_read_value_GSA (){
   retval=$( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5[$6]' $1)" )
   echo "$retval"
 }
+
+function config_read_number_value_GGA (){
+  # $1 - Config file path
+  # $2 - Group
+  # $3 - Select field name 
+  # $4 - Value array name
+  # $5 - Value array index
+  retval=""
+  retval=$( run_func 1 "$(jq '.$2.$3 | .$4[$5]' | tonumber $1)" )
+  echo "$retval"
+}
