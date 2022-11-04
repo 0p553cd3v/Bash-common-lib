@@ -18,3 +18,4 @@ fi
 sudo cp $HOME/Git/Bash-common-lib/src/common.sh /lib/sh
 sudo cp $HOME/Git/Bash-common-lib/src/logging.sh /lib/sh
 sudo cp $HOME/Git/Bash-common-lib/src/checks.sh /lib/sh
+sudo cp $HOME/Git/Bash-common-lib/src/configs.sh /lib/sh
