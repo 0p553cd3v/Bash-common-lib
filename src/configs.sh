@@ -9,7 +9,9 @@ function config_count_records_GGA (){
     # $3 - Select field name 
     # $4 - Select field value
     # $5 - Value array name
-   run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5 | length' $1)"
+   retval=""
+   retval=$( run_func_return 1 "$(jq '.$2[] | select(.$3=="$4") | .$5 | length' $1)" )
+   echo "$retval"
 }
 
 function config_read_value_GSF (){
@@ -18,7 +20,7 @@ function config_read_value_GSF (){
     # $3 - Select field name 
     # $4 - Select field value
     # $5 - Value field name
-   run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5' $1)"
+  retval=$( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5' $1)" )
 }
 
 function config_read_value_GSA (){
@@ -28,5 +30,5 @@ function config_read_value_GSA (){
     # $4 - Select field value
     # $5 - Value array name
     # $6 - Value array index
-   run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5[$6]' $1)"
+   retval=$( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5[$6]' $1)" )
 }
