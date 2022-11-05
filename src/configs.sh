@@ -13,8 +13,8 @@ function config_count_records_GGA (){
   edebug "Arg 2: $2"
   edebug "Arg 3: $3"
   edebug "Arg 4: $4"
-  edebug "Running function: $( run_func_return 1 "$(jq '.$2.$3 | .$4 | length' $1)" )"
-  retval=$( run_func_return 1 "$(jq '.$2.$3 | .$4 | length' $1)" )
+  edebug "Running function: run_func_return 1 $(jq ".$2.$3 | .$4 | length" $1)" 
+  retval= run_func_return 1 $(jq ".$2.$3 | .$4 | length" $1)
   edebug "Returning: $retval"
   echo "$retval"
 }
