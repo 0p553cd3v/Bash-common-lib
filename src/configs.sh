@@ -13,8 +13,7 @@ function config_count_records_GGA (){
   edebug "Arg 2: $2"
   edebug "Arg 3: $3"
   edebug "Arg 4: $4"
-  edebug "Running function: run_func_return 1 $(jq ".$2.$3 | .$4 | length" $1)" 
-  retval= run_func_return 1 "jq '.$2.$3 | .$4 | length' $1 "
+  retval= run_func_return 1 "jq '.$2.$3.$4 | length' $1"
   edebug "Returning: $retval"
   echo "$retval"
 }
@@ -31,7 +30,6 @@ function config_count_records_GSA (){
   edebug "Arg 3: $3"
   edebug "Arg 4: $4"
   edebug "Arg 5: $5"
-  edebug "Running function: $( run_func_return 1 "$(jq '.$2[] | select(.$3=="$4") | .$5 | length' $1)" )"
   retval=$( run_func_return 1 "$(jq '.$2[] | select(.$3=="$4") | .$5 | length' $1)" )
   edebug "Returning: $retval"
   echo "$retval"
@@ -49,7 +47,6 @@ function config_read_value_GSF (){
   edebug "Arg 3: $3"
   edebug "Arg 4: $4"
   edebug "Arg 5: $5"
-  edebug "Running function: $( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5' $1)" )"
   retval=$( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5' $1)" )
   edebug "Returning: $retval"
   echo "$retval"
@@ -69,7 +66,6 @@ function config_read_value_GSA (){
   edebug "Arg 4: $4"
   edebug "Arg 5: $5"
   edebug "Arg 6: $6"
-  edebug "Running function: $( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5[$6]' $1)" )"
   retval=$( run_func 1 "$(jq '.$2[] | select(.$3=="$4") | .$5[$6]' $1)" )
   edebug "Returning: $retval"
   echo "$retval"
@@ -87,7 +83,6 @@ function config_read_number_value_GGA (){
   edebug "Arg 3: $3"
   edebug "Arg 4: $4"
   edebug "Arg 5: $5"
-  edebug "Running function: $( run_func 1 "$(jq '.$2.$3 | .$4[$5]' | tonumber $1)" )"
   retval=$( run_func 1 "$(jq '.$2.$3 | .$4[$5]' | tonumber $1)" )
   edebug "Returning: $retval"
   echo "$retval"

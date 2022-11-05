@@ -56,6 +56,7 @@ function run_func_return() {
 		retval=$2
 		check_if_fail
 	fi
+	edebug "Returning: $retval"
 	echo "$retval"
 }
 
