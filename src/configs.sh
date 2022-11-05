@@ -58,7 +58,7 @@ function config_read_number_value_GGA (){
   # $4 - Value array name
   # $5 - Value array index
   retval=""
-  retval=$(jq -r ".$2.$3.$4[$5]" | tonumber $1)
+  retval=$(jq -r ".$2.$3.$4[$5] | tonumber" $1)
   check_if_fail
   echo "$retval"
 }
