@@ -62,3 +62,15 @@ function config_read_number_value_GGA (){
   check_if_fail
   echo "$retval"
 }
+
+function config_read_value_GGA (){
+  # $1 - Config file path
+  # $2 - Group
+  # $3 - Select field name 
+  # $4 - Value array name
+  # $5 - Value array index
+  retval=""
+  retval=$(jq -r ".$2.$3.$4[$5]" $1)
+  check_if_fail
+  echo "$retval"
+}
