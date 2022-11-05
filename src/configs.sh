@@ -69,7 +69,7 @@ function config_read_value_GSA (){
   edebug "Arg 4: $4"
   edebug "Arg 5: $5"
   edebug "Arg 6: $6"
-  retval=$(jq ".$2[] | select(.$3==$4) | .$5[$6]" $1)
+  retval=$(jq -r ".$2[] | select(.$3==$4) | .$5[$6]" $1)
   check_if_fail
   edebug "Returning: $retval"
   echo "$retval"
@@ -87,7 +87,7 @@ function config_read_number_value_GGA (){
   edebug "Arg 3: $3"
   edebug "Arg 4: $4"
   edebug "Arg 5: $5"
-  retval=$(jq ".$2.$3 | .$4[$5]" | tonumber $1)
+  retval=$(jq -r ".$2.$3 | .$4[$5]" | tonumber $1)
   check_if_fail
   edebug "Returning: $retval"
   echo "$retval"
